@@ -1,6 +1,5 @@
 package integrationtests;
 
-import api.CurrentWeatherData;
 import static com.google.common.truth.Truth.assertThat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import exception.CityNotFoundException;

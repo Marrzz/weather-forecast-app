@@ -1,7 +1,6 @@
 package api;
 
-import api.CurrentWeatherData;
-import api.WeatherApi;
+import dto.CurrentWeatherData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import exception.CityNotFoundException;
 import org.junit.Test;

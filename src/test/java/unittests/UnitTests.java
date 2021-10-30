@@ -3,7 +3,7 @@ package unittests;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 import exception.WrongInputException;
-import main.Main;
+import helpers.StringFormatter;
 import org.junit.Test;
 
 public class UnitTests {
@@ -13,7 +13,7 @@ public class UnitTests {
 
         String name = "tallinn";
 
-        String result = Main.processInput(name);
+        String result = StringFormatter.processInput(name);
 
         assertThat(result).isEqualTo("Tallinn");
 
@@ -24,7 +24,7 @@ public class UnitTests {
 
         String name = "10284";
 
-        Exception e = assertThrows(WrongInputException.class,() -> Main.processInput(name));
+        Exception e = assertThrows(WrongInputException.class,() -> StringFormatter.processInput(name));
 
         assertThat(e.getMessage()).isEqualTo("City name should contain only letters!");
     }
@@ -34,7 +34,7 @@ public class UnitTests {
 
         String name = "new york";
 
-        System.out.println(Main.processInput(name));
+        System.out.println(StringFormatter.processInput(name));
     }
 
 }
