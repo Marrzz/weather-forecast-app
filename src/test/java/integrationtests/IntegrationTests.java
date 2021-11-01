@@ -12,7 +12,7 @@ public class IntegrationTests {
     @Test
     public void mainDetailsObjectContainsSpecifiedFields() throws JsonProcessingException, CityNotFoundException {
 
-        String currentWeather = Main.getWeatherData("tallinn");
+        String currentWeather = Main.getCurrentWeatherReport("tallinn");
 
         assertThat(currentWeather).contains("coordinates");
         assertThat(currentWeather).contains("city");
@@ -22,11 +22,11 @@ public class IntegrationTests {
 
 
     @Test
-    public void outputContainsSpecifiedFields(){
+    public void outputContainsSpecifiedFields() throws JsonProcessingException, CityNotFoundException {
 
         String cityName = "Tallinn";
 
-        String output = Main.getWeatherReport(cityName);
+        String output = Main.getCurrentWeatherAndForecastJson(cityName);
 
         int dateCount = StringUtils.countMatches(output,"date");
         int tempCount = StringUtils.countMatches(output,"temperature");

@@ -5,10 +5,11 @@ import exception.WrongInputException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringFormatter {
+public class CurrentReportFormatter {
 
 
     public static String processInput(String input) throws WrongInputException {
+
         StringBuilder result = new StringBuilder();
 
         if (input.matches("^[a-zA-Z\\s]*$")){
@@ -29,9 +30,9 @@ public class StringFormatter {
 
     public static String replaceFieldsInReport(String json){
 
-        json = json.replaceAll("main", "currentWeatherReport");
-
-        json = json.replaceAll("name", "city");
+        json = json.replaceAll("main", "currentWeatherReport")
+                .replaceAll("name", "city").replaceFirst("\\{", "\"weatherReportDetails\": {")
+                .replace("\"temperatureUnit\":\"Celsius\"","\"temperatureUnit\":\"Celsius\"}");
 
         json = deconstructCoordinates(json);
 
