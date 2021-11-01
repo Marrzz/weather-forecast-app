@@ -38,10 +38,12 @@ public class CurrentReportFormatter {
 
         json = roundOutTemperature(json);
 
+        json = replaceNumericStringsWithNumbers(json);
+
         return json;
     }
 
-    public static String deconstructCoordinates(String json){
+    private static String deconstructCoordinates(String json){
         json = json.replaceAll("\"coord\":\\{\"lat\":","\"coordinates\": \"");
 
         json = json.replaceAll("\"lon\":", "");
@@ -60,7 +62,7 @@ public class CurrentReportFormatter {
         return json;
     }
 
-    public static String roundOutTemperature(String json){
+    private static String roundOutTemperature(String json){
 
         Pattern p = Pattern.compile("(\\d+\\.+\\d+)");
 
@@ -72,7 +74,20 @@ public class CurrentReportFormatter {
 
         m.find();
 
-        json = json.replace(m.group(1), Double.toString(Math.ceil(Float.parseFloat(m.group(1)))));
+        json = json.replace(String.format("\"%s\"",m.group(1)), String.valueOf((int) Float.parseFloat(m.group(1))));
+        return json;
+    }
+
+    private static String replaceNumericStringsWithNumbers(String json){
+
+        Pattern p = Pattern.compile("\"([\\d]*)\"");
+        Matcher m = p.matcher(json);
+
+        while (m.find()){
+            json = json.replace(String.format("\"%s\"", m.group(1)), m.group(1));
+
+        }
+
         return json;
     }
 }

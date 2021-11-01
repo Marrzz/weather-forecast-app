@@ -1,5 +1,6 @@
 package main;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import dto.CurrentWeatherData;
 import api.WeatherApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
