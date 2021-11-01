@@ -2,6 +2,7 @@ package api;
 
 import dto.CurrentWeatherData;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import dto.ThreeDayWeatherForecast;
 import exception.CityNotFoundException;
 import org.junit.Test;
 
@@ -33,4 +34,16 @@ public class WeatherApiTests {
 
         assertThat(exception.getMessage()).isEqualTo(errorMessage);
     }
+
+    @Test
+    public void threeDayWeatherForecastContainsListOfThreeElements_WhenRequestingAForecast() {
+
+        String city = "Tartu";
+
+        ThreeDayWeatherForecast forecast = api.getThreeDayForecast(city);
+
+        assertThat(forecast.getList().size()).isEqualTo(3);
+
+    }
+
 }
