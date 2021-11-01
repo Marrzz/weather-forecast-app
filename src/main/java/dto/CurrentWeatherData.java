@@ -1,8 +1,6 @@
 package dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import dto.Coordinates;
-import dto.Weather;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

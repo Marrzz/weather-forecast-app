@@ -9,7 +9,9 @@ import static org.hamcrest.Matchers.hasKey;
 public class OpenWeatherMapTests {
 
     private static final String APPID = "a5c83d3b6e9960e717fd2a602e64b99b";
+    private static final String PREM = "c0c4a4b4047b97ebc5948ac9c48c0559";
     private static final String BASEURL = "https://api.openweathermap.org/data/2.5/weather";
+    private static final String FORECAST = "https://api.openweathermap.org/data/2.5/forecast/daily";
 
     @Test
     public void whenCalledWithoutApi_ReturnsHttpUnauthorized(){
@@ -57,4 +59,31 @@ public class OpenWeatherMapTests {
                 .body("coord",hasKey("lat"))
                 .body("coord",hasKey("lon"));
     }
+
+    @Test
+    public void shouldReturnHttpOK_WhenQueryingThreeDayForecast(){
+        given()
+                .queryParam("q", "Tartu")
+                .queryParam("appid", PREM)
+                .queryParam("units", "metric")
+                .queryParam("cnt", "3")
+                .when()
+                .get(FORECAST)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void hasFieldList_WhenQueryingThreeDayForecast(){
+        given()
+                .queryParam("q", "Tartu")
+                .queryParam("appid", PREM)
+                .queryParam("units", "metric")
+                .queryParam("cnt", "3")
+                .when()
+                .get(FORECAST)
+                .then()
+                .body("", hasKey("list"));
+    }
+
 }

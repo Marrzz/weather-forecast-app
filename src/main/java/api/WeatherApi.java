@@ -1,6 +1,7 @@
 package api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -8,7 +9,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import dto.CurrentWeatherData;
-import dto.WeatherForecast;
+import dto.ThreeDayWeatherForecast;
 import exception.CityNotFoundException;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
@@ -35,14 +36,20 @@ public class WeatherApi{
         return new Gson().fromJson(response.get(String.class), CurrentWeatherData.class);
     }
 
-    public WeatherForecast getFiveDayForecast(String cityName){
+    public ThreeDayWeatherForecast getThreeDayForecast(String cityName) throws JsonProcessingException {
 
-        WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/forecast")
-                .queryParam("appid","a5c83d3b6e9960e717fd2a602e64b99b")
+        WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/forecast/daily")
                 .queryParam("q", cityName)
+                .queryParam("cnt", "4")
+                .queryParam("appid","c0c4a4b4047b97ebc5948ac9c48c0559")
                 .queryParam("units", "metric");
 
-        return new Gson().fromJson(response.get(String.class), WeatherForecast.class);
+        ThreeDayWeatherForecast weatherForecast = new Gson().fromJson(response.get(String.class), ThreeDayWeatherForecast.class);
+        weatherForecast.setList(weatherForecast.getList().subList(1,4));
+
+        //System.out.println(new ObjectMapper().writeValueAsString(weatherForecast));
+
+        return weatherForecast;
 
     }
 

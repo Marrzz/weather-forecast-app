@@ -2,18 +2,22 @@ package unittests;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
+
+import api.WeatherApi;
 import exception.WrongInputException;
-import helpers.StringFormatter;
+import helpers.CurrentReportFormatter;
 import org.junit.Test;
 
 public class UnitTests {
+
+    WeatherApi api = new WeatherApi();
 
     @Test
     public void TestShouldReturnCityNameWithFirstLetterUpperCase_whenInputIsAllLowerCase() throws WrongInputException {
 
         String name = "tallinn";
 
-        String result = StringFormatter.processInput(name);
+        String result = CurrentReportFormatter.processInput(name);
 
         assertThat(result).isEqualTo("Tallinn");
 
@@ -24,7 +28,7 @@ public class UnitTests {
 
         String name = "10284";
 
-        Exception e = assertThrows(WrongInputException.class,() -> StringFormatter.processInput(name));
+        Exception e = assertThrows(WrongInputException.class,() -> CurrentReportFormatter.processInput(name));
 
         assertThat(e.getMessage()).isEqualTo("City name should contain only letters!");
     }
@@ -34,7 +38,8 @@ public class UnitTests {
 
         String name = "new york";
 
-        System.out.println(StringFormatter.processInput(name));
+        System.out.println(CurrentReportFormatter.processInput(name));
     }
+
 
 }
