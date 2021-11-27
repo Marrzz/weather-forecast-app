@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class IntegrationTests {
 
@@ -55,39 +56,14 @@ public class IntegrationTests {
     }
 
     @Test
-    public void correctWeatherForecastGetsPrinted_WhenCityNameComesFromATextFile() throws JsonProcessingException, CityNotFoundException {
-
-        String fileLocation ="src/main/java/files/city.txt";
-
-        String json = Main.getCurrentWeatherAndForecastJson(fileLocation);
-
-        int dateCount = StringUtils.countMatches(json,"date");
-        int tempCount = StringUtils.countMatches(json,"temperature");
-        int humidityCount = StringUtils.countMatches(json,"humidity");
-        int pressureCount = StringUtils.countMatches(json,"pressure");
-
-        assertThat(dateCount).isEqualTo(4);
-        assertThat(tempCount).isEqualTo(4);
-        assertThat(humidityCount).isEqualTo(4);
-        assertThat(pressureCount).isEqualTo(4);
-
-        assertThat(json).contains("weatherReportDetails");
-        assertThat(json).contains("currentWeatherReport");
-        assertThat(json).contains("forecastReport");
-
-        assertThat(json).doesNotContain("null");
-
-    }
-
-    @Test
     public void wrongFileFormatExceptionIsThrown_WhenWrongFileFormatIsGivenToGetCurrentWeatherAndForecastJson(){
 
-        String fileLocation = "src/main/java/files/city.json";
+        String fileName = "city.json";
 
         String errorMessage = "Wrong File Format, please use a txt file!";
 
         Exception exception = assertThrows(WrongFileFormatException.class, () ->{
-            Main.getCurrentWeatherAndForecastJson(fileLocation);
+            Main.readCitiesFromFile(fileName);
         });
 
         assertThat(exception.getMessage()).isEqualTo(errorMessage);
@@ -99,10 +75,11 @@ public class IntegrationTests {
 
         String fileLocation = "no file";
 
-        String errorMessage = "File not found, please check file location!";
+        String errorMessage = "File Not found! " +
+                "Check the file name and extension, only txt files are accepted and the file must be in root folder!";
 
         Exception exception = assertThrows(FileNotFoundException.class, () ->{
-            Main.getCurrentWeatherAndForecastJson(fileLocation);
+            Main.readCitiesFromFile(fileLocation);
         });
 
         assertThat(exception.getMessage()).isEqualTo(errorMessage);
@@ -110,19 +87,20 @@ public class IntegrationTests {
     }
 
     @Test
-    public void cityNameFromFileProducesAJsonFileWithWeatherReport(){
+    public void cityNameFromFileProducesAJsonFileWithWeatherReport() throws IOException, CityNotFoundException {
 
         MyFileReader reader = new MyFileReader();
 
-        String fileLocation = "src/main/java/files/city.txt";
+        String fileName = "Tallinn_" + java.time.LocalDate.now() + ".json";
+        //Tallinn
 
-        Main.getCurrentWeatherAndForecastJson(fileLocation);
+        Main.saveForecastToFile(Main.getCurrentWeatherAndForecastJson("Tallinn"), "Tallinn");
 
-        File file = new File("src/main/java/files/forecast.json");
+        File file = new File(fileName);
 
         assertThat(file.exists()).isTrue();
 
-        String forecastFileContents = reader.readForecastFile();
+        String forecastFileContents = reader.readForecastFile(fileName);
 
         int dateCount = StringUtils.countMatches(forecastFileContents,"date");
         int tempCount = StringUtils.countMatches(forecastFileContents,"temperature");
