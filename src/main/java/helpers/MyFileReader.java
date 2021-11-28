@@ -28,8 +28,8 @@ public class MyFileReader {
 
         try (Scanner scanner = new Scanner(file)) {
 
-            while (scanner.hasNextLine()) {
-                String city = scanner.next().trim();
+            while (scanner.hasNext()) {
+                String city = scanner.nextLine();
                 cities.add(city);
 
             }

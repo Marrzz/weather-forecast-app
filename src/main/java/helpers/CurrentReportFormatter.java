@@ -64,6 +64,15 @@ public class CurrentReportFormatter {
 
     private static String roundOutTemperature(String json){
 
+        String temperature = findTemperatureFromJson(json);
+
+
+        json = json.replace(String.format("\"%s\"",temperature), String.valueOf((int) Float.parseFloat(temperature)));
+        return json;
+    }
+
+    private static String findTemperatureFromJson(String json){
+
         Pattern p = Pattern.compile("(\\d+\\.+\\d+)");
 
         Matcher m = p.matcher(json);
@@ -74,8 +83,8 @@ public class CurrentReportFormatter {
 
         m.find();
 
-        json = json.replace(String.format("\"%s\"",m.group(1)), String.valueOf((int) Float.parseFloat(m.group(1))));
-        return json;
+        return m.group(1);
+
     }
 
     private static String replaceNumericStringsWithNumbers(String json){

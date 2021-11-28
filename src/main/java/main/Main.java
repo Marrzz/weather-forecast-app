@@ -21,9 +21,23 @@ public class Main {
 
         List<String> cities = readCitiesFromFile(getFileNameFromUser());
 
-        String json = getCurrentWeatherAndForecastJson(cities.get(0));
+        //String json = getCurrentWeatherAndForecastJson(cities.get(0));
 
-        saveForecastToFile(json, cities.get(0));
+        for (String city: cities) {
+
+            try{
+                String json = getCurrentWeatherAndForecastJson(city);
+                saveForecastToFile(json, city);
+                System.out.println("Saved forecast for " + city);
+            } catch (Exception e){
+                if (e instanceof CityNotFoundException){
+                    System.out.println("ERR: City '" + city + "' not found!!!");
+                }
+            }
+
+
+        }
+
 
     }
 
