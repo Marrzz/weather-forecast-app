@@ -17,11 +17,9 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws CityNotFoundException, IOException, WrongFileFormatException {
+    public static void main(String[] args) throws IOException, WrongFileFormatException {
 
         List<String> cities = readCitiesFromFile(getFileNameFromUser());
-
-        //String json = getCurrentWeatherAndForecastJson(cities.get(0));
 
         for (String city: cities) {
 
@@ -63,14 +61,6 @@ public class Main {
         return CurrentReportFormatter.replaceFieldsInReport(new ObjectMapper().writeValueAsString(w));
     }
 
-    public static String getCityNameFromUser(){
-
-        System.out.println("Enter a city name!");
-
-        Scanner scanner = new Scanner(System.in);
-
-        return scanner.nextLine();
-    }
     public static String getFileNameFromUser(){
 
         System.out.println("Enter File Name! ");

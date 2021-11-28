@@ -3,14 +3,11 @@ package unittests;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import api.WeatherApi;
 import exception.WrongInputException;
 import helpers.CurrentReportFormatter;
 import org.junit.Test;
 
 public class UnitTests {
-
-    WeatherApi api = new WeatherApi();
 
     @Test
     public void TestShouldReturnCityNameWithFirstLetterUpperCase_whenInputIsAllLowerCase() throws WrongInputException {
