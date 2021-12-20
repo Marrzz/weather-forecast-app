@@ -8,7 +8,7 @@ build:
 test:
   stage: test
   rules:
-    -if: '$CI_COMMIT_BRANCH == "main"'
+    -if: $CI_COMMIT_BRANCH == "main"
   script:
     - mvn clean test
 
