@@ -6,9 +6,9 @@ import lombok.Data;
 public class WeatherForecast {
 
 
-    String dt;
-    Temperature temp;
-    String pressure;
-    String humidity;
+    private String dt;
+    private Temperature temp;
+    private String pressure;
+    private String humidity;
 
 }

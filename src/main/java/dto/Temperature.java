@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Temperature {
 
-    float max;
-    float min;
+    private float max;
+    private float min;
 }

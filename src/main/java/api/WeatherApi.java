@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import dto.CurrentWeatherData;
 import dto.ThreeDayWeatherForecast;
+import dto.WeatherForecast;
 import exception.CityNotFoundException;
 import helpers.MyWebResource;
 
@@ -18,21 +19,38 @@ public class WeatherApi{
 
         WebResource response = webResource.currentWeatherDataFor(cityName);
 
-        if (response.get(ClientResponse.class).getStatus() == HTTP_NOT_FOUND){
-            throw new CityNotFoundException();
-        }
-        return new Gson().fromJson(response.get(String.class), CurrentWeatherData.class);
+        return returnCurrentWeatherDataIfSuccessfulResponse(response);
     }
 
-    public ThreeDayWeatherForecast getThreeDayForecast(String cityName) {
+    public ThreeDayWeatherForecast getThreeDayForecast(String cityName) throws CityNotFoundException {
 
-        WebResource response = webResource.forecastDataFor(cityName);
+        WebResource apiResponse = webResource.forecastDataFor(cityName);
+
+        return returnThreeDayWeatherForecastIfSuccessfulResponse(apiResponse);
+
+    }
+
+    private boolean responseCodeIs404(WebResource response){
+        return response.get(ClientResponse.class).getStatus() == HTTP_NOT_FOUND;
+    }
+
+    private ThreeDayWeatherForecast returnThreeDayWeatherForecastIfSuccessfulResponse(WebResource response) throws CityNotFoundException {
+
+        if (responseCodeIs404(response)){
+            throw new CityNotFoundException();
+        }
 
         ThreeDayWeatherForecast weatherForecast = new Gson().fromJson(response.get(String.class), ThreeDayWeatherForecast.class);
         weatherForecast.setList(weatherForecast.getList().subList(1,4));
 
         return weatherForecast;
+    }
 
+    private CurrentWeatherData returnCurrentWeatherDataIfSuccessfulResponse(WebResource response) throws CityNotFoundException {
+        if (responseCodeIs404(response)){
+            throw new CityNotFoundException();
+        }
+        return new Gson().fromJson(response.get(String.class), CurrentWeatherData.class);
     }
 
 }

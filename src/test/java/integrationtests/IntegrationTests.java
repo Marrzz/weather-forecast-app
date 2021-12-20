@@ -30,7 +30,7 @@ public class IntegrationTests {
 
 
     @Test
-    public void outputContainsSpecifiedFields() throws JsonProcessingException, CityNotFoundException {
+    public void outputContainsFieldsDateTemperatureHumidityPressure() throws JsonProcessingException, CityNotFoundException {
 
         String cityName = "Tallinn";
 
@@ -71,7 +71,7 @@ public class IntegrationTests {
     }
 
     @Test
-    public void noFileFoundExceptionIsThrown_WhenFileIsNotFound(){
+    public void noFileFoundExceptionIsThrown_WhenFileIsMissing(){
 
         String fileLocation = "no file";
 
@@ -92,7 +92,6 @@ public class IntegrationTests {
         MyFileReader reader = new MyFileReader();
 
         String fileName = "Tallinn_" + java.time.LocalDate.now() + ".json";
-        //Tallinn
 
         Main.saveForecastToFile(Main.getCurrentWeatherAndForecastJson("Tallinn"), "Tallinn");
 

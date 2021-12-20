@@ -14,7 +14,7 @@ public class UnitTests {
 
         String name = "tallinn";
 
-        String result = CurrentReportFormatter.processInput(name);
+        String result = CurrentReportFormatter.checkUserInputValidity(name);
 
         assertThat(result).isEqualTo("Tallinn");
 
@@ -25,7 +25,7 @@ public class UnitTests {
 
         String name = "10284";
 
-        Exception e = assertThrows(WrongInputException.class,() -> CurrentReportFormatter.processInput(name));
+        Exception e = assertThrows(WrongInputException.class,() -> CurrentReportFormatter.checkUserInputValidity(name));
 
         assertThat(e.getMessage()).isEqualTo("City name should contain only letters!");
     }
@@ -35,7 +35,7 @@ public class UnitTests {
 
         String name = "new york";
 
-        System.out.println(CurrentReportFormatter.processInput(name));
+        System.out.println(CurrentReportFormatter.checkUserInputValidity(name));
     }
 
 

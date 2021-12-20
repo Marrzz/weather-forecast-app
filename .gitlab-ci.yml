@@ -1,4 +1,4 @@
-image: maven:3.3.9-jdk-8
+image: maven:3.8.4-jdk-11
 
 build:
   stage: build
@@ -7,6 +7,8 @@ build:
 
 test:
   stage: test
+  rules:
+    -if: '$CI_COMMIT_BRANCH == "main"'
   script:
     - mvn clean test
 

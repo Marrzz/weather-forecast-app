@@ -70,7 +70,7 @@ public class Main {
         return scanner.nextLine();
     }
 
-    public static String getWeatherForecast(String cityName) throws JsonProcessingException {
+    public static String getWeatherForecast(String cityName) throws JsonProcessingException, CityNotFoundException {
 
         ForecastReportFormatter formatter = new ForecastReportFormatter();
 

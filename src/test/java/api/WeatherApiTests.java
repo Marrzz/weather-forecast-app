@@ -36,7 +36,7 @@ public class WeatherApiTests {
     }
 
     @Test
-    public void threeDayWeatherForecastContainsListOfThreeElements_WhenRequestingAForecast() throws JsonProcessingException {
+    public void threeDayWeatherForecastContainsListOfThreeElements_WhenRequestingAForecast() throws JsonProcessingException, CityNotFoundException {
 
         String city = "Tartu";
 

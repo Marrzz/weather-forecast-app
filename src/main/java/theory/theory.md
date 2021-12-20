@@ -1,6 +1,6 @@
 ### 1. Which of the following activities cannot be automated?
 - [ ] Test execution
-- [ ] Exploratory Testing
+- [x] Exploratory Testing
 - [x] Discussing testability issues
 - [ ] Test data generation
 
@@ -24,5 +24,5 @@ When the tests pass we refactor the code and repeat the process.
 
 ###5. Write 2 test cases or scenarios for a String Calculator application, which has a method `calculate()` that takes a string of two numbers separated by a comma as input, and returns the sum.
 
-- Given the input `" "` when the method `calculate()` is called then I should see a `WrongInputException`
-- Given the input `-(5,3)` when the method `calculate()` is called then I should see `2` as a result
+- Given the input `","` when the method `calculate()` is called then I should see a `WrongInputException`
+- Given the input `10,10` when the method `calculate()` is called then I should see `20` as a result

@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 public class CurrentReportFormatter {
 
 
-    public static String processInput(String input) throws WrongInputException {
+    @Deprecated
+    public static String checkUserInputValidity(String input) throws WrongInputException {
 
         StringBuilder result = new StringBuilder();
 
@@ -38,12 +39,13 @@ public class CurrentReportFormatter {
 
         json = roundOutTemperature(json);
 
-        json = replaceNumericStringsWithNumbers(json);
+        json = parseStringsToNumbers(json);
 
         return json;
     }
 
     private static String deconstructCoordinates(String json){
+
         json = json.replaceAll("\"coord\":\\{\"lat\":","\"coordinates\": \"");
 
         json = json.replaceAll("\"lon\":", "");
@@ -64,14 +66,13 @@ public class CurrentReportFormatter {
 
     private static String roundOutTemperature(String json){
 
-        String temperature = findTemperatureFromJson(json);
-
+        String temperature = findTemperatureValueFromJson(json);
 
         json = json.replace(String.format("\"%s\"",temperature), String.valueOf((int) Float.parseFloat(temperature)));
         return json;
     }
 
-    private static String findTemperatureFromJson(String json){
+    private static String findTemperatureValueFromJson(String json){
 
         Pattern p = Pattern.compile("(\\d+\\.+\\d+)");
 
@@ -87,7 +88,7 @@ public class CurrentReportFormatter {
 
     }
 
-    private static String replaceNumericStringsWithNumbers(String json){
+    private static String parseStringsToNumbers(String json){
 
         Pattern p = Pattern.compile("\"([\\d]*)\"");
         Matcher m = p.matcher(json);
