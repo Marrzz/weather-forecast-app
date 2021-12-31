@@ -5,7 +5,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import dto.CurrentWeatherData;
 import dto.ThreeDayWeatherForecast;
-import dto.WeatherForecast;
 import exception.CityNotFoundException;
 import helpers.MyWebResource;
 
@@ -17,14 +16,14 @@ public class WeatherApi{
 
     public CurrentWeatherData getCurrentWeatherData(String cityName) throws CityNotFoundException {
 
-        WebResource response = webResource.currentWeatherDataFor(cityName);
+        WebResource response = webResource.getCurrentWeatherDataFor(cityName);
 
         return returnCurrentWeatherDataIfSuccessfulResponse(response);
     }
 
     public ThreeDayWeatherForecast getThreeDayForecast(String cityName) throws CityNotFoundException {
 
-        WebResource apiResponse = webResource.forecastDataFor(cityName);
+        WebResource apiResponse = webResource.getForecastDataFor(cityName);
 
         return returnThreeDayWeatherForecastIfSuccessfulResponse(apiResponse);
 

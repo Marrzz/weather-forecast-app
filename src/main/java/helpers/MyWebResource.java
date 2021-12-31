@@ -19,7 +19,7 @@ public class MyWebResource {
         return create(config);
     }
 
-    public WebResource currentWeatherDataFor(String city){
+    public WebResource getCurrentWeatherDataFor(String city){
 
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/weather")
                 .queryParam("appid","a5c83d3b6e9960e717fd2a602e64b99b")
@@ -29,7 +29,7 @@ public class MyWebResource {
         return response;
     }
 
-    public WebResource forecastDataFor(String city){
+    public WebResource getForecastDataFor(String city){
 
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/forecast/daily")
                 .queryParam("q", city)
