@@ -22,7 +22,7 @@ public class MyWebResource {
     public WebResource getCurrentWeatherDataFor(String city){
 
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/weather")
-                .queryParam("appid","a5c83d3b6e9960e717fd2a602e64b99b")
+                .queryParam("appid","YOUR_API_KEY")
                 .queryParam("q", city)
                 .queryParam("units", "metric");
 
@@ -34,7 +34,7 @@ public class MyWebResource {
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/forecast/daily")
                 .queryParam("q", city)
                 .queryParam("cnt", "4")
-                .queryParam("appid","c0c4a4b4047b97ebc5948ac9c48c0559")
+                .queryParam("appid","YOUR_API_KEY")
                 .queryParam("units", "metric");
 
         return response;
