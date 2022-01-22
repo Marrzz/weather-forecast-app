@@ -1,5 +1,12 @@
 # Simple application to display current weather and 3 day forecast.
 
+### OpenWeatherMapAPI
+  
+  This application presumes you have a premium OpenWeatherMapAPI key.
+  This key should be used in ```ÀPI_KEY``` constant in ```MyWebResource.java``` class
+  
+  [Get your key here...](https://openweathermap.org/api)
+
 ### Commands for interacting with the project from terminal:
 
 Navigate to the root foler of the project and run the following commands
