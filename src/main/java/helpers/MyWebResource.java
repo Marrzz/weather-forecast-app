@@ -11,6 +11,8 @@ import static com.sun.jersey.api.json.JSONConfiguration.FEATURE_POJO_MAPPING;
 
 public class MyWebResource {
 
+    String API_KEY = "YOUR API KEY HERE!!!";
+
     private Client getConfiguredClient(){
         ClientConfig config = new DefaultClientConfig();
 
@@ -22,7 +24,7 @@ public class MyWebResource {
     public WebResource getCurrentWeatherDataFor(String city){
 
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/weather")
-                .queryParam("appid","YOUR_API_KEY")
+                .queryParam("appid",API_KEY)
                 .queryParam("q", city)
                 .queryParam("units", "metric");
 
@@ -34,7 +36,7 @@ public class MyWebResource {
         WebResource response = getConfiguredClient().resource("https://api.openweathermap.org/data/2.5/forecast/daily")
                 .queryParam("q", city)
                 .queryParam("cnt", "4")
-                .queryParam("appid","YOUR_API_KEY")
+                .queryParam("appid",API_KEY)
                 .queryParam("units", "metric");
 
         return response;
